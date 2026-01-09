@@ -1,55 +1,86 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+Sync Impact Report:
+- Version change: null -> 1.0.0
+- List of modified principles (old title -> new title if renamed):
+  - [PRINCIPLE_1_NAME] -> I. Spec-First Development (MANDATORY)
+  - [PRINCIPLE_2_NAME] -> II. Architecture Values (Statelessness & Cloud-Native)
+  - [PRINCIPLE_3_NAME] -> III. Technology Stack Constraints
+  - [PRINCIPLE_4_NAME] -> IV. Security & Privacy Standards
+  - [PRINCIPLE_5_NAME] -> V. Code Quality & Testing Discipline
+- Added sections:
+  - Evolution Across Phases
+  - Conflict Resolution & Success Criteria
+- Templates requiring updates (✅ updated / ⚠ pending):
+  - .specify/templates/plan-template.md (✅ updated)
+  - .specify/templates/spec-template.md (✅ updated)
+  - .specify/templates/tasks-template.md (✅ updated)
+- Follow-up TODOs if any placeholders intentionally deferred: None
+-->
+
+# The Evolution of Todo Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Spec-First Development (MANDATORY)
+**Golden Rule**: No code shall be written manually. Every feature must follow the SDD pipeline: Constitution → Specify → Plan → Tasks → Implement.
+- NO manual coding - All implementation via Claude Code.
+- NO improvisation - Every line traces back to a validated task.
+- NO shortcuts - Refine specs until AI generates correct output.
+- Enforcement: All pull requests must reference Task IDs and Spec sections.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### II. Architecture Values (Statelessness & Cloud-Native)
+- **Statelessness (Phase III+)**: NO localStorage/sessionStorage. State must persist to database (Neon PostgreSQL).
+- **Cloud-Native (Phase IV+)**: Containerize everything (Docker), Kubernetes native (Minikube/Helm), 12-Factor App principles, mandatory health checks (`/health`, `/ready`).
+- **Event-Driven (Phase V)**: Loose coupling via Kafka, async by default, idempotent handlers, event sourcing mindset.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### III. Technology Stack Constraints
+- **Backend**: Python 3.13+ (FastAPI, SQLModel, UV).
+- **Frontend**: TypeScript (Next.js 16+ App Router, Tailwind CSS).
+- **Infrastructure**: Docker, Kubernetes, Helm, Kafka, Dapr.
+- **Auth & AI**: Better Auth (JWT), OpenAI Agents SDK, Official MCP SDK.
+- **Database**: Neon PostgreSQL.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### IV. Security & Privacy Standards
+- **Authentication**: JWT tokens only (issued by Better Auth, validated by FastAPI).
+- **Isolation**: Every query filtered by authenticated `user_id`. No global queries.
+- **Privacy**: No PII in logs; SQL injection prevention (parameterized queries); XSS prevention (React auto-escaping).
+- **Infrastructure**: HTTPS only in production; environment secrets (no committed keys).
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### V. Code Quality & Testing Discipline
+- **File Headers**: Every file MUST include Module name, Purpose, Phase, Task IDs, and Spec references.
+- **Python**: Async by default, type hints everywhere, docstrings for public functions, JSON structured logging.
+- **Testing**: Manual (Phase I-II), Unit/Integration/Contract (Phase III+), Health/Smoke/Load (Phase IV-V).
+- **Performance**: API < 200ms p95, DB < 100ms.
 
-### [PRINCIPLE_6_NAME]
+## Evolution Across Phases
 
-
-[PRINCIPLE__DESCRIPTION]
-
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
-
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
-
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
-
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+| Principle | Phase I | Phase II | Phase III | Phase IV | Phase V |
+|-----------|---------|---------|-----------|-----------|---------|
+| Spec-First Development | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Stateless Architecture | ❌ | ❌ | ✅ | ✅ | ✅ |
+| Kubernetes Deployment | ❌ | ❌ | ❌ | ✅ | ✅ |
+| Event-Driven (Kafka) | ❌ | ❌ | ❌ | ❌ | ✅ |
+| Dapr Integration | ❌ | ❌ | ❌ | ❌ | ✅ |
+| JWT Authentication | ❌ | ✅ | ✅ | ✅ | ✅ |
+| MCP Tools | ❌ | ❌ | ✅ | ✅ | ✅ |
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+### Conflict Resolution
+When spec files conflict, follow this hierarchy:
+**Constitution > Hackathon Requirements > Specify > Plan > Tasks**
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+### Success Criteria
+The project is successful when:
+1. All 5 phases are complete.
+2. Every feature traces to specs (Task IDs in all code files).
+3. AI agents generated 100% of code.
+4. Deployed to cloud (Phase V).
+5. No violations of this Constitution.
+
+### Amendment Policy
+- MAJOR: Version bump for principle removals or redefinitions.
+- MINOR: New principle or material additions.
+- PATCH: Formatting, wording, or typo fixes.
+
+**Version**: 1.0.0 | **Ratified**: 2026-01-04 | **Last Amended**: 2026-01-04

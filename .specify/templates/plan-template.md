@@ -17,21 +17,26 @@
   the iteration process.
 -->
 
-**Language/Version**: [e.g., Python 3.11, Swift 5.9, Rust 1.75 or NEEDS CLARIFICATION]  
-**Primary Dependencies**: [e.g., FastAPI, UIKit, LLVM or NEEDS CLARIFICATION]  
-**Storage**: [if applicable, e.g., PostgreSQL, CoreData, files or N/A]  
-**Testing**: [e.g., pytest, XCTest, cargo test or NEEDS CLARIFICATION]  
-**Target Platform**: [e.g., Linux server, iOS 15+, WASM or NEEDS CLARIFICATION]
-**Project Type**: [single/web/mobile - determines source structure]  
-**Performance Goals**: [domain-specific, e.g., 1000 req/s, 10k lines/sec, 60 fps or NEEDS CLARIFICATION]  
-**Constraints**: [domain-specific, e.g., <200ms p95, <100MB memory, offline-capable or NEEDS CLARIFICATION]  
-**Scale/Scope**: [domain-specific, e.g., 10k users, 1M LOC, 50 screens or NEEDS CLARIFICATION]
+**Language/Version**: Python 3.13+
+**Primary Dependencies**: FastAPI, SQLModel, UV, OpenAI Agents SDK, Better Auth
+**Storage**: Neon PostgreSQL
+**Testing**: pytest, Playwright, k6
+**Target Platform**: Linux (Docker) -> Kubernetes (Minikube/Cloud)
+**Project Type**: Web Application (Next.js + FastAPI)
+**Performance Goals**: API < 200ms p95, DB < 100ms
+**Constraints**: No manual coding, No localStorage (Phase III+), JWT Auth
+**Scale/Scope**: 100+ concurrent users (Phase V)
 
 ## Constitution Check
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+- [ ] Spec-First: Does this feature follow the SDD pipeline?
+- [ ] Stateless: Are we avoiding localStorage/sessionStorage? (Phase III+)
+- [ ] Security: Is every query filtered by `user_id`?
+- [ ] Headers: Does every file include required metadata?
+- [ ] Tech Stack: Does it match Python 3.13+/Next.js 16+?
+- [ ] Phase Alignment: Does the implementation respect current Phase constraints?
 
 ## Project Structure
 
