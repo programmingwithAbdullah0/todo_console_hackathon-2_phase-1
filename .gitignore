@@ -30,3 +30,4 @@ history/prompts/
 
 # Special Windows files
 nul
+uv.lock
